@@ -15,22 +15,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from horoscope import views
+from django.urls import path, include
+
 
 urlpatterns = [
-    path('horoscope/<sign_zodiac>/', views.zodiac),
-    # path('admin/', admin.site.urls),
-    # path('horoscope/leo/', views.leo),
-    # path('horoscope/scorpio/', views.scorpio),
-    # path('horoscope/aries/', views.aries),
-    # path('horoscope/taurus/', views.taurus),
-    # path('horoscope/gemini/', views.gemini),
-    # path('horoscope/cancer/', views.cancer),
-    # path('horoscope/virgo/', views.virgo),
-    # path('horoscope/libra/', views.libra),
-    # path('horoscope/sagittarius/', views.sagittarius),
-    # path('horoscope/capricorn/', views.capricorn),
-    # path('horoscope/aquarius/', views.aquarius),
-    # path('horoscope/pisces/', views.pisces),
+    path('admin/', admin.site.urls),
+    path('horoscope/', include('horoscope.urls')),
 ]
