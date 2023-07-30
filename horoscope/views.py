@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
 from django.template.loader import render_to_string
+from dataclasses import dataclass
+
 zodiac_dict = {
     'aries': 'Овен - первый знак зодиака, планета Марс (с 21 марта по 20 апреля).',
     'taurus': 'Телец - второй знак зодиака, планета Венера (с 21 апреля по 21 мая).',
@@ -56,39 +58,20 @@ zodiac_dict_by_data = {
 
 
 def index(request):
+    #li_elements += f"<li> <a href='{redirect_path}'>{sign.title()} </a> </li>"
     zodiacs = list(zodiac_dict)
-    """
-    <ol>
-        <li>aries</li>
-        <li>taurus</li>
-        <li>gemini</li>
-        <li>cancer</li>
-        <li>leo</li>
-        <li>virgo</li>
-        <li>libra</li>
-        <li>scorpio</li>
-        <li>sagittarius</li>
-        <li>capricorn</li>
-        <li>aquarius</li>
-        <li>pisces</li>
-    </ol>
-    """
-    li_elements = ''
-    for sign in zodiacs:
-        redirect_path = reverse('horoscope-name', args=[sign])
-        li_elements += f"<li> <a href='{redirect_path}'>{sign.title()} </a> </li>"
-    response = f"""
-    <ul>
-        {li_elements}
-    </ul>
-    """
-    return HttpResponse(response)
+    context = {
+        'zodiacs': zodiacs,
+        'zodiac_dict': zodiac_dict,
+    }
+    return render(request, 'horoscope/index.html', context=context)
 
 
 def zodiac(request, sign_zodiac: str):
     description = zodiac_dict.get(sign_zodiac)
     data = {
         'description_zodiac': description,
+        'name_zodiac': sign_zodiac,
     }
     return render(request, 'horoscope/info_zodiac.html', context=data)
 
@@ -141,6 +124,7 @@ def sign_zodiac_element(request, sign_zodiac_element: str):
             return HttpResponseRedirect(redirect_url)
         return HttpResponseNotFound(f'Элемента {sign_zodiac_element} нету')
 
+
 def zodiac_by_date(request, month, day):
     if month > 0 and month <= 12:
         if day > 0 and dict_month_day[month] >= day:
@@ -159,4 +143,3 @@ def zodiac_by_date(request, month, day):
             return HttpResponseNotFound('Ошибка ввода')
     else:
         return HttpResponseNotFound('Ошибка ввода')
-
