@@ -1,14 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Меню</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+    {% block title %}
+        Меню
+    {% endblock %}
+
+{% block content %}
+ <h2>Content from index.html</h2>
   <ul>
     {% for zodiac in zodiacs %}
-      <li> <b> {{ forloop.counter}} {{ zodiac|title }} </b> </li>
+      <li> <b> {{ forloop.counter}} <a href="{% url 'horoscope-name' sign_zodiac=zodiac %}">{{ zodiac|title }}</a> </b> </li>
     {% endfor %}
   </ul>
-</body>
-</html>
+{% endblock %}
