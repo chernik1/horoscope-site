@@ -19,7 +19,7 @@ zodiac_dict = {
     'pisces': 'Рыбы - двенадцатый знак зодиака, планеты Юпитер (с 20 февраля по 20 марта).',
 }
 
-types = {
+elements_dict = {
     'fire': ['aries', 'leo', 'sagittarius'],
     'water': ['cancer', 'scorpio', 'pisces'],
     'earth': ['taurus', 'virgo', 'capricorn'],
@@ -58,6 +58,7 @@ zodiac_dict_by_data = {
 
 
 def index(request):
+    """ Function for menu(функция для меня)."""
     #li_elements += f"<li> <a href='{redirect_path}'>{sign.title()} </a> </li>"
     zodiacs = list(zodiac_dict)
     context = {
@@ -68,6 +69,7 @@ def index(request):
 
 
 def zodiac(request, sign_zodiac: str):
+    """ Function for show zodiacs(функция для отображение зодиаков). """
     description = zodiac_dict.get(sign_zodiac)
     data = {
         'description_zodiac': description,
@@ -77,6 +79,8 @@ def zodiac(request, sign_zodiac: str):
 
 
 def zodiac_by_number(request, sign_zodiac_number: int):
+    """ Function for search zodiacs with help number(Функция поиска зодиака по справочному номеру).
+    For example - /horoscope/5/"""
     zodiacs = list(zodiac_dict)
     if int(sign_zodiac_number) > len(zodiacs):
         return HttpResponseNotFound(f'Номера {sign_zodiac_number} нету')
@@ -85,31 +89,18 @@ def zodiac_by_number(request, sign_zodiac_number: int):
     return HttpResponseRedirect(redirect_url)
 
 
-def type(request):
-    """
-    <ol>
-        <li>Fire</li>
-        <li>Earth</li>
-        <li>Air</li>
-        <li>Water</li>
-    </ol>
-    """
-    li_elements = ''
-    for sign in types.keys():
-        redirect_path = sign.lower()
-        li_elements += f"<li> <a href='{redirect_path}'>{sign.title()} </a> </li>"
-    response = f"""
-        <ul>
-            {li_elements}
-        </ul>
-        """
-    return HttpResponse(response)
+def elements(request):
+    # li_elements += f"<li> <a href='{redirect_path}'>{sign.title()} </a> </li>"
+    data = {
+        'elements_dict': elements_dict,
+    }
+    return render(request, 'horoscope/elements.html', context=data)
 
 
 def sign_zodiac_element(request, sign_zodiac_element: str):
-    if sign_zodiac_element in types:
+    if sign_zodiac_element in elements_dict:
         li_elements = ''
-        zodiac_list = types[sign_zodiac_element]
+        zodiac_list = elements_dict[sign_zodiac_element]
         for zodiac in zodiac_list:
             li_elements += f"<li> <a href='{zodiac.lower()}'>{zodiac.title()} </a> </li>"
         response = f"""
