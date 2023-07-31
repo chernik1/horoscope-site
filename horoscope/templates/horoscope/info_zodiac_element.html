@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+    {% block title %}
+        Horoscope for {{name|title}} element
+    {% endblock %}
+
+{% block content %}
+    {% include 'includes/navbar.html' %}
+    {% for zodiac in zodiacs %}
+    <l> <h2> {{ forloop.counter}} <a href="{% url 'horoscope-name' sign_zodiac=zodiac %}"> {{ zodiac|title }} </a> </h2></l>
+    {% endfor %}
+{% endblock %}

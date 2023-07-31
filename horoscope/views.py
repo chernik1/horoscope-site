@@ -58,7 +58,7 @@ zodiac_dict_by_data = {
 
 
 def index(request):
-    """ Function for menu(функция для меня)."""
+    """ Function for menu."""
     #li_elements += f"<li> <a href='{redirect_path}'>{sign.title()} </a> </li>"
     zodiacs = list(zodiac_dict)
     context = {
@@ -69,7 +69,7 @@ def index(request):
 
 
 def zodiac(request, sign_zodiac: str):
-    """ Function for show zodiacs(функция для отображение зодиаков). """
+    """ Function for show zodiacs. """
     description = zodiac_dict.get(sign_zodiac)
     data = {
         'description_zodiac': description,
@@ -79,7 +79,7 @@ def zodiac(request, sign_zodiac: str):
 
 
 def zodiac_by_number(request, sign_zodiac_number: int):
-    """ Function for search zodiacs with help number(Функция поиска зодиака по справочному номеру).
+    """ Function for search zodiacs with help number.
     For example - /horoscope/5/"""
     zodiacs = list(zodiac_dict)
     if int(sign_zodiac_number) > len(zodiacs):
@@ -90,6 +90,8 @@ def zodiac_by_number(request, sign_zodiac_number: int):
 
 
 def elements(request):
+    """ Function for show elements.
+    /horoscope/elements/ """
     # li_elements += f"<li> <a href='{redirect_path}'>{sign.title()} </a> </li>"
     data = {
         'elements_dict': elements_dict,
@@ -98,25 +100,20 @@ def elements(request):
 
 
 def sign_zodiac_element(request, sign_zodiac_element: str):
+    """ Function for zodiac search about elements."""
     if sign_zodiac_element in elements_dict:
-        li_elements = ''
-        zodiac_list = elements_dict[sign_zodiac_element]
-        for zodiac in zodiac_list:
-            li_elements += f"<li> <a href='{zodiac.lower()}'>{zodiac.title()} </a> </li>"
-        response = f"""
-            <ul>
-                {li_elements}
-            </ul>
-            """
-        return HttpResponse(li_elements)
+        zodiacs_list = elements_dict[sign_zodiac_element]
+        data = {
+            'name': sign_zodiac_element,
+            'zodiacs': zodiacs_list,
+        }
+        return render(request, 'horoscope/info_zodiac_element.html', context=data)
     else:
-        if sign_zodiac_element in zodiac_dict:
-            redirect_url = reverse('horoscope-name', args=(sign_zodiac_element,))
-            return HttpResponseRedirect(redirect_url)
-        return HttpResponseNotFound(f'Элемента {sign_zodiac_element} нету')
+        return HttpResponseNotFound(f'There is no element - {sign_zodiac_element}')
 
 
 def zodiac_by_date(request, month, day):
+    """ Function for search zodiacs. horoscope/month/day/"""
     if month > 0 and month <= 12:
         if day > 0 and dict_month_day[month] >= day:
             for key in zodiac_dict_by_data.keys():
@@ -131,6 +128,6 @@ def zodiac_by_date(request, month, day):
                 else:
                     continue
         else:
-            return HttpResponseNotFound('Ошибка ввода')
+            return HttpResponseNotFound('Input error.')
     else:
-        return HttpResponseNotFound('Ошибка ввода')
+        return HttpResponseNotFound('Input error.')
