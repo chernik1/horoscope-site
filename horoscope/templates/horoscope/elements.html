@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+    {% block title %}
+        Types zodiacs
+    {% endblock %}
+
+{% block content %}
+    {% include 'includes/navbar.html' %}
+    <h1>Types apps</h1>
+    <ul>
+    {% for key in elements_dict.keys %}
+      <li> <b> {{ forloop.counter}} <a href="{% url 'horoscope-elements' sign_zodiac_element=key %}">{{ key|title }}</a> </b> </li>
+    {% endfor %}
+    </ul>
+{% endblock %}
