@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
+    {% load static %}
+    {% block css_additional %}
+`       <link rel="stylesheet" href=" {% static 'horoscope/css/info_zodiac.css' %}">
+    {% endblock %}
 
     {% block title %}
         Horoscope for {{name_zodiac|capfirst}}
