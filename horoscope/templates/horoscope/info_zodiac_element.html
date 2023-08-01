@@ -1,12 +1,17 @@
 {% extends 'base.html' %}
 
+{% load static %}
+{% block css_additional %}
+    <link rel="stylesheet" href=" {% static 'horoscope/css/info_zodiac_element.css' %}">
+{% endblock %}
+
     {% block title %}
-        Horoscope for {{name|title}} element
+        Horoscope for {{name}} element
     {% endblock %}
 
 {% block content %}
     {% include 'includes/navbar.html' %}
-    {% for zodiac in zodiacs %}
-     <h2> {{ forloop.counter}} <a href="{% url 'horoscope-name' sign_zodiac=zodiac %}"> {{ zodiac|title }} </a> </h2>
+    {% for zodiac in zodiacs_list %}
+     <h1> <a href="{% url 'horoscope-name' sign_zodiac=zodiac %}"> {{ zodiac|title }} </a> </h1>
     {% endfor %}
 {% endblock %}

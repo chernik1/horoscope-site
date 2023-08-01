@@ -108,9 +108,11 @@ def sign_zodiac_element(request, sign_zodiac_element: str):
     """ Function for zodiac search about elements."""
     if sign_zodiac_element in elements_dict:
         zodiacs_list = elements_dict[sign_zodiac_element]
+        zodiacs = list(zodiac_dict)
         data = {
             'name': sign_zodiac_element,
-            'zodiacs': zodiacs_list,
+            'zodiacs_list': zodiacs_list,
+            'zodiacs': zodiacs,
         }
         return render(request, 'horoscope/info_zodiac_element.html', context=data)
     else:

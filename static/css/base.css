@@ -23,3 +23,11 @@ nav a {
     font-size: 2rem;
     margin: 20px;
 }
+
+ul a:hover, ul a:active {
+  color: #eca8b5;
+}
+
+nav a:hover, ul a:active {
+  color: #eca8b5;
+}
