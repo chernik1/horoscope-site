@@ -65,7 +65,7 @@ def index(request):
         'zodiacs': zodiacs,
         'zodiac_dict': zodiac_dict,
     }
-    return render(request, 'horoscope/321.html', context=context)
+    return render(request, 'horoscope/index.html', context=context)
 
 
 def zodiac(request, sign_zodiac: str):
