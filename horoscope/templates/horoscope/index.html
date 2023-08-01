@@ -11,11 +11,10 @@
     {% endblock %}
 
 {% block content %}
-    {% include 'includes/navbar.html' %}
-    <h2>Content from index.html</h2>
+    <h1>Horoscope apps</h1>
     <ul>
     {% for zodiac in zodiacs %}
-      <li> <b> {{ forloop.counter}} <a href="{% url 'horoscope-name' sign_zodiac=zodiac %}">{{ zodiac|title }}</a> </b> </li>
+      <li> <b> <a href="{% url 'horoscope-name' sign_zodiac=zodiac %}">{{ zodiac|title }}</a> </b> </li>
     {% endfor %}
     </ul>
 {% endblock %}
