@@ -10,7 +10,7 @@
 
 {% block content %}
     {% include 'includes/navbar.html' %}
-    <h1>Horoscope apps</h1>
+    <h1>{{sign_name|title}}</h1>
     {% if description_zodiac is None %}
     <h2> Неправильный знак зодиака - {{ sign|upper}}</h2>
     {% else %}

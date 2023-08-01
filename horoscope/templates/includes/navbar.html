@@ -1,5 +1,8 @@
 <nav>
-    <a href="{% url 'horoscope-index' %}">Главная</a> |
-    <a href="https://www.homeenglish.ru/OtherGoroscop.htm">Источник</a> |
+    <a href="{% url 'horoscope-index' %}">Main</a>
+    <a href="https://www.homeenglish.ru/OtherGoroscop.htm">Source</a>
     <a href="{% url 'horoscope-elements' %}">Elements</a>
+    {% for zodiac in zodiacs %}
+    <a href="{% url 'horoscope-name' sign_zodiac=zodiac %}">{{zodiac|title}}</a>
+    {% endfor %}
 </nav>

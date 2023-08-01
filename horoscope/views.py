@@ -5,18 +5,18 @@ from django.template.loader import render_to_string
 from dataclasses import dataclass
 
 zodiac_dict = {
-    'aries': 'Овен - первый знак зодиака, планета Марс (с 21 марта по 20 апреля).',
-    'taurus': 'Телец - второй знак зодиака, планета Венера (с 21 апреля по 21 мая).',
-    'gemini': 'Близнецы - третий знак зодиака, планета Меркурий (с 22 мая по 21 июня).',
-    'cancer': 'Рак - четвёртый знак зодиака, Луна (с 22 июня по 22 июля).',
-    'leo': ' Лев - пятый знак зодиака, солнце (с 23 июля по 21 августа).',
-    'virgo': 'Дева - шестой знак зодиака, планета Меркурий (с 22 августа по 23 сентября).',
-    'libra': 'Весы - седьмой знак зодиака, планета Венера (с 24 сентября по 23 октября).',
-    'scorpio': 'Скорпион - восьмой знак зодиака, планета Марс (с 24 октября по 22 ноября).',
-    'sagittarius': 'Стрелец - девятый знак зодиака, планета Юпитер (с 23 ноября по 22 декабря).',
-    'capricorn': 'Козерог - десятый знак зодиака, планета Сатурн (с 23 декабря по 20 января).',
-    'aquarius': 'Водолей - одиннадцатый знак зодиака, планеты Уран и Сатурн (с 21 января по 19 февраля).',
-    'pisces': 'Рыбы - двенадцатый знак зодиака, планеты Юпитер (с 20 февраля по 20 марта).',
+     'aries': 'Aries is the first sign of the zodiac, planet Mars (March 21 to April 20).',
+     'taurus': 'Taurus is the second sign of the zodiac, the planet Venus (April 21 to May 21).',
+     'gemini': 'Gemini is the third sign of the zodiac, planet Mercury (May 22 to June 21).',
+     'cancer': 'Cancer is the fourth sign of the zodiac, the Moon (June 22 to July 22).',
+     'leo': 'Leo is the fifth sign of the zodiac, the sun (July 23 to August 21).',
+     'virgo': 'Virgo is the sixth sign of the zodiac, planet Mercury (August 22 to September 23).',
+     'libra': 'Libra is the seventh sign of the zodiac, planet Venus (September 24 to October 23).',
+     'scorpio': 'Scorpio is the eighth sign of the zodiac, the planet Mars (October 24 to November 22).',
+     'sagittarius': 'Sagittarius is the ninth sign of the zodiac, planet Jupiter (November 23 to December 22).',
+     'capricorn': 'Capricorn is the tenth sign of the zodiac, planet Saturn (December 23 to January 20).',
+     'aquarius': 'Aquarius is the eleventh sign of the zodiac, planets Uranus and Saturn (Jan 21 to Feb 19).',
+     'pisces': 'Pisces is the twelfth sign of the zodiac, planet Jupiter (February 20 to March 20).',
 }
 
 elements_dict = {
@@ -71,9 +71,12 @@ def index(request):
 def zodiac(request, sign_zodiac: str):
     """ Function for show zodiacs. """
     description = zodiac_dict.get(sign_zodiac)
+    zodiacs = list(zodiac_dict)
     data = {
         'description_zodiac': description,
         'name_zodiac': sign_zodiac,
+        'zodiacs': zodiacs,
+        'sign_name': description.split()[0]
     }
     return render(request, 'horoscope/info_zodiac.html', context=data)
 
@@ -92,9 +95,11 @@ def zodiac_by_number(request, sign_zodiac_number: int):
 def elements(request):
     """ Function for show elements.
     /horoscope/elements/ """
+    zodiacs = list(zodiac_dict)
     # li_elements += f"<li> <a href='{redirect_path}'>{sign.title()} </a> </li>"
     data = {
         'elements_dict': elements_dict,
+        'zodiacs': zodiacs,
     }
     return render(request, 'horoscope/elements.html', context=data)
 
