@@ -4,4 +4,4 @@ from django.urls import reverse
 
 
 def tab(request):
-    return HttpResponse('hi')
+    return render(request, 'main_tab/main_tab.html')
