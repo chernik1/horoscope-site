@@ -30,3 +30,6 @@ ul a:hover, ul a:active {
 nav a:hover, ul a:active {
   color: #eca8b5;
 }
+h1 {
+    text-align: center;
+}
