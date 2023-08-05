@@ -2,20 +2,20 @@
 
 {% load static %}
 {% block css_additional %}
-    <link rel="stylesheet" href=" {% static 'horoscope/css/elements.css' %}">
+<link rel="stylesheet" href=" {% static 'horoscope/css/elements.css' %}">
 {% endblock %}
 
 
-    {% block title %}
-        Types zodiacs
-    {% endblock %}
+{% block title %}
+Types zodiacs
+{% endblock %}
 
 {% block content %}
-    {% include 'includes/navbar.html' %}
-    <h1>Elements apps</h1>
-    <ul>
+{% include 'includes/navbar.html' %}
+<h1>Elements apps</h1>
+<ul>
     {% for key in elements_dict.keys %}
-      <li> <b> <a href="{% url 'horoscope-elements' sign_zodiac_element=key %}">{{ key|title }}</a> </b> </li>
+    <li><b> <a href="{% url 'horoscope-elements' sign_zodiac_element=key %}">{{ key|title }}</a> </b></li>
     {% endfor %}
-    </ul>
+</ul>
 {% endblock %}

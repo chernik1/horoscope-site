@@ -1,22 +1,25 @@
 {% extends 'base.html' %}
-    {% load static %}
+{% load static %}
 
-    {% block css_additional %}
-`       <link rel="stylesheet" href=" {% static 'horoscope/css/index.css' %}">
-    {% endblock %}
+{% block css_additional %}`
+<link rel="stylesheet" href=" {% static 'horoscope/css/index.css' %}">
+{% endblock %}
 
 
-    {% block title %}
-        Меню
-    {% endblock %}
+{% block title %}
+Меню
+{% endblock %}
 
 {% block content %}
-    <center><img src="{% static 'main_tab/img/all_zodiac.jpg'%}" alt="zodiac"></center>
-    {% include 'includes/navbar.html' %}
-    <h1>Horoscope apps</h1>
-    <ul>
+{% include 'includes/navbar.html' %}
+
+<div class="all_zodiac_img">
+     <img src="{% static 'horoscope/img/all_zodiac.jpg'%}" alt="zodiac" style="width:450px">
+</div>
+<h1>Horoscope apps</h1>
+<ul>
     {% for zodiac in zodiacs %}
-      <li> <b> <a href="{% url 'horoscope-name' sign_zodiac=zodiac %}">{{ zodiac|title }}</a> </b> </li>
+    <li><b> <a href="{% url 'horoscope-name' sign_zodiac=zodiac %}">{{ zodiac|title }}</a> </b></li>
     {% endfor %}
-    </ul>
+</ul>
 {% endblock %}
