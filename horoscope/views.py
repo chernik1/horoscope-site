@@ -75,7 +75,7 @@ def elements(request):
     /horoscope/elements/ """
     zodiacs = Zodiac.objects.all()
     data = {
-        'elements_list': ['Fire', 'Air', 'Earth', 'Water'],
+        'elements_list': ['Water', 'Earth', 'Fire', 'Air'],
         'zodiacs': zodiacs,
         'main_urls': main_urls,
     }

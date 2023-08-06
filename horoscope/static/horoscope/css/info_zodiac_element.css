@@ -5,3 +5,10 @@ h1 {
     font-size: 48px;
     text-decoration: underline;
 }
+
+h2 {
+    text-align: center;
+    color: green;
+    font-family: "Andale Mono", AndaleMono, monospace;
+    font-size: 60px;
+}

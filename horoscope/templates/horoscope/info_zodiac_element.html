@@ -10,6 +10,7 @@
     {% endblock %}
 
 {% block content %}
+    <h2> {{ sign_element|title }} zodiacs </h2>
     {% include 'includes/navbar.html' %}
     {% for zodiac in zodiacs_element_list %}
      <h1> <a href="{% url 'horoscope-name' sign_zodiac=zodiac %}"> {{ zodiac|title }} </a> </h1>
