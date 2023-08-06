@@ -7,7 +7,7 @@
 
 
 {% block title %}
-Меню
+Horoscope main
 {% endblock %}
 
 {% block content %}
@@ -19,7 +19,7 @@
 <h1>Horoscope apps</h1>
 <ul>
     {% for zodiac in zodiacs %}
-    <li><b> <a href="{% url 'horoscope-name' sign_zodiac=zodiac %}">{{ zodiac|title }}</a> </b></li>
+    <li><b> <a href="{% url 'horoscope-name' sign_zodiac=zodiac|lower %}">{{ zodiac.name|title }}</a> </b></li>
     {% endfor %}
 </ul>
 {% endblock %}

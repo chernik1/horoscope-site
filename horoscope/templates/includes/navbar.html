@@ -3,6 +3,6 @@
     <a href="https://www.homeenglish.ru/OtherGoroscop.htm">Source</a>
     <a href="{% url 'horoscope-elements' %}">Elements</a>
     {% for zodiac in zodiacs %}
-    <a href="{% url 'horoscope-name' sign_zodiac=zodiac %}">{{zodiac|title}}</a>
+    <a href="{% url 'horoscope-name' sign_zodiac=zodiac|lower %}">{{ zodiac.name|title }}</a>
     {% endfor %}
 </nav>

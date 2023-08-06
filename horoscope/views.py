@@ -1,30 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
 from django.template.loader import render_to_string
-from dataclasses import dataclass
-
-zodiac_dict = {
-     'aries': 'Aries is the first sign of the zodiac, planet Mars (March 21 to April 20).',
-     'taurus': 'Taurus is the second sign of the zodiac, the planet Venus (April 21 to May 21).',
-     'gemini': 'Gemini is the third sign of the zodiac, planet Mercury (May 22 to June 21).',
-     'cancer': 'Cancer is the fourth sign of the zodiac, the Moon (June 22 to July 22).',
-     'leo': 'Leo is the fifth sign of the zodiac, the sun (July 23 to August 21).',
-     'virgo': 'Virgo is the sixth sign of the zodiac, planet Mercury (August 22 to September 23).',
-     'libra': 'Libra is the seventh sign of the zodiac, planet Venus (September 24 to October 23).',
-     'scorpio': 'Scorpio is the eighth sign of the zodiac, the planet Mars (October 24 to November 22).',
-     'sagittarius': 'Sagittarius is the ninth sign of the zodiac, planet Jupiter (November 23 to December 22).',
-     'capricorn': 'Capricorn is the tenth sign of the zodiac, planet Saturn (December 23 to January 20).',
-     'aquarius': 'Aquarius is the eleventh sign of the zodiac, planets Uranus and Saturn (Jan 21 to Feb 19).',
-     'pisces': 'Pisces is the twelfth sign of the zodiac, planet Jupiter (February 20 to March 20).',
-}
-
-elements_dict = {
-    'fire': ['aries', 'leo', 'sagittarius'],
-    'water': ['cancer', 'scorpio', 'pisces'],
-    'earth': ['taurus', 'virgo', 'capricorn'],
-    'air': ['gemini', 'libra', 'aquarius'],
-}
+from .models import Zodiac
 
 dict_month_day = {
     1: 31,
@@ -59,24 +37,20 @@ zodiac_dict_by_data = {
 
 def index(request):
     """ Function for menu."""
-    #li_elements += f"<li> <a href='{redirect_path}'>{sign.title()} </a> </li>"
-    zodiacs = list(zodiac_dict)
+    zodiacs = Zodiac.objects.all()
     context = {
         'zodiacs': zodiacs,
-        'zodiac_dict': zodiac_dict,
     }
     return render(request, 'horoscope/index.html', context=context)
 
 
 def zodiac(request, sign_zodiac: str):
     """ Function for show zodiacs. """
-    description = zodiac_dict.get(sign_zodiac)
-    zodiacs = list(zodiac_dict)
+    zodiac = get_object_or_404(Zodiac, name=sign_zodiac.title())
+    zodiacs = Zodiac.objects.all()
     data = {
-        'description_zodiac': description,
-        'name_zodiac': sign_zodiac,
+        'zodiac': zodiac,
         'zodiacs': zodiacs,
-        'sign_name': description.split()[0]
     }
     return render(request, 'horoscope/info_zodiac.html', context=data)
 
@@ -84,10 +58,10 @@ def zodiac(request, sign_zodiac: str):
 def zodiac_by_number(request, sign_zodiac_number: int):
     """ Function for search zodiacs with help number.
     For example - /horoscope/5/"""
-    zodiacs = list(zodiac_dict)
-    if int(sign_zodiac_number) > len(zodiacs):
-        return HttpResponseNotFound(f'Номера {sign_zodiac_number} нету')
-    name_zodiac = zodiacs[sign_zodiac_number - 1]
+    zodiacs = Zodiac.objects.all()
+    if int(sign_zodiac_number) > len(zodiacs) or int(sign_zodiac_number) <= 0:
+        return HttpResponseNotFound(f'Not number {sign_zodiac_number}')
+    name_zodiac = Zodiac.objects.get(number=sign_zodiac_number)
     redirect_url = reverse('horoscope-name', args=(name_zodiac,))
     return HttpResponseRedirect(redirect_url)
 
@@ -95,28 +69,27 @@ def zodiac_by_number(request, sign_zodiac_number: int):
 def elements(request):
     """ Function for show elements.
     /horoscope/elements/ """
-    zodiacs = list(zodiac_dict)
-    # li_elements += f"<li> <a href='{redirect_path}'>{sign.title()} </a> </li>"
+    zodiacs = Zodiac.objects.all()
     data = {
-        'elements_dict': elements_dict,
+        'elements_list': ['Fire', 'Air', 'Earth', 'Water'],
         'zodiacs': zodiacs,
     }
     return render(request, 'horoscope/elements.html', context=data)
 
 
-def sign_zodiac_element(request, sign_zodiac_element: str):
+def sign_zodiac_element(request, sign_element: str):
     """ Function for zodiac search about elements."""
-    if sign_zodiac_element in elements_dict:
-        zodiacs_list = elements_dict[sign_zodiac_element]
-        zodiacs = list(zodiac_dict)
-        data = {
-            'name': sign_zodiac_element,
-            'zodiacs_list': zodiacs_list,
-            'zodiacs': zodiacs,
-        }
-        return render(request, 'horoscope/info_zodiac_element.html', context=data)
-    else:
-        return HttpResponseNotFound(f'There is no element - {sign_zodiac_element}')
+    zodiac_element_list = []
+    zodiacs = Zodiac.objects.all()
+    for zodiac in zodiacs:
+        if zodiac.element == sign_element.title():
+            zodiac_element_list.append(zodiac.name)
+    data = {
+        'zodiacs_element_list': zodiac_element_list,
+        'sign_element': sign_element,
+        'zodiacs': zodiacs,
+    }
+    return render(request, 'horoscope/info_zodiac_element.html', context=data)
 
 
 def zodiac_by_date(request, month, day):

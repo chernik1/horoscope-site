@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 @admin.register(Zodiac)
 class ZodiacAdmin(admin.ModelAdmin):
-    list_display = ['name', 'photo', 'description']
+    list_display = ['name', 'photo', 'description', 'element']
     list_per_page = 12
     ordering = ['number']
 

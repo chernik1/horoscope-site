@@ -7,15 +7,15 @@
 
 
 {% block title %}
-Types zodiacs
+Elements zodiacs
 {% endblock %}
 
 {% block content %}
 {% include 'includes/navbar.html' %}
 <h1>Elements apps</h1>
 <ul>
-    {% for key in elements_dict.keys %}
-    <li><b> <a href="{% url 'horoscope-elements' sign_zodiac_element=key %}">{{ key|title }}</a> </b></li>
+    {% for element in elements_list %}
+    <li><b> <a href="{% url 'horoscope-elements' sign_element=element|lower %}">{{ element }}</a> </b></li>
     {% endfor %}
 </ul>
 {% endblock %}

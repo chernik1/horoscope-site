@@ -6,12 +6,12 @@
 {% endblock %}
 
     {% block title %}
-        Horoscope for {{name}} element
+        Horoscope for {{ sign_element }} element
     {% endblock %}
 
 {% block content %}
     {% include 'includes/navbar.html' %}
-    {% for zodiac in zodiacs_list %}
+    {% for zodiac in zodiacs_element_list %}
      <h1> <a href="{% url 'horoscope-name' sign_zodiac=zodiac %}"> {{ zodiac|title }} </a> </h1>
     {% endfor %}
 {% endblock %}

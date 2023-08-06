@@ -5,15 +5,11 @@
     {% endblock %}
 
     {% block title %}
-        Horoscope for {{name_zodiac|capfirst}}
+        Horoscope for {{zodiac.name|capfirst}}
     {% endblock %}
 
 {% block content %}
     {% include 'includes/navbar.html' %}
-    <h1>{{sign_name|title}}</h1>
-    {% if description_zodiac is None %}
-    <h2> Неправильный знак зодиака - {{ sign|upper}}</h2>
-    {% else %}
-        <h2> {{ description_zodiac|capfirst|safe }} </h2>
-    {% endif %}
+    <h1> {{ zodiac.name }}</h1>
+    <h2>{{ zodiac.description }}</h2>
 {% endblock %}
