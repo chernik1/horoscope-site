@@ -10,7 +10,7 @@ class TestHoroscope(TestCase):
         self.assertEqual(responce.status_code, 200)
 
     def test_libra(self):
-        responce = self.client.get('/horoscope/libra/')
+        responce = self.client.get('/horoscope/libra')
         self.assertEqual(responce.status_code, 200)
         self.assertIn('Libra is the seventh sign of the zodiac, planet Venus (September 24 to October 23).',
                       responce.content.decode())

@@ -12,4 +12,5 @@
     {% include 'includes/navbar.html' %}
     <h1> {{ zodiac.name }}</h1>
     <h2>{{ zodiac.description }}</h2>
+    <center><img src="/static/horoscope{{ zodiac.photo.url }}" alt="{{ zodiac.name }} Image"></center>
 {% endblock %}
