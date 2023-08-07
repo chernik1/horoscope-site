@@ -15,8 +15,7 @@ Elements zodiacs
 <h1>Elements apps</h1>
 <ul>
     {% for element in elements_list %}
-    <li><b> <a href="{% url 'horoscope-elements' sign_element=element|lower %}">{{ element }}</a> </b></li>
+    <a href="{% url 'horoscope-elements' sign_element=element|lower %}"><img src="/static/horoscope/img/{{ element }}.jpg" alt="{{element}} image" width="250px"></a>
     {% endfor %}
 </ul>
-<center><img src="/static/horoscope/img/elements.jpg" alt="{{ zodiac.name }} Image", width="550px"></center>
 {% endblock %}
