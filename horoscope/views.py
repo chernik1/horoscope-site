@@ -5,7 +5,6 @@ from django.template.loader import render_to_string
 from .models import Zodiac
 from first.settings import INTERNAL_IPS
 
-main_urls = INTERNAL_IPS[0]
 dict_month_day = {
     1: 31,
     2: 28,
@@ -42,7 +41,6 @@ def index(request):
     zodiacs = Zodiac.objects.all()
     context = {
         'zodiacs': zodiacs,
-        'main_urls': main_urls,
     }
     return render(request, 'horoscope/index.html', context=context)
 
@@ -54,7 +52,6 @@ def zodiac(request, sign_zodiac: str):
     data = {
         'zodiac': zodiac,
         'zodiacs': zodiacs,
-        'main_urls': main_urls,
     }
     return render(request, 'horoscope/info_zodiac.html', context=data)
 
@@ -77,7 +74,6 @@ def elements(request):
     data = {
         'elements_list': ['Water', 'Earth', 'Fire', 'Air'],
         'zodiacs': zodiacs,
-        'main_urls': main_urls,
     }
     return render(request, 'horoscope/elements.html', context=data)
 
@@ -93,7 +89,6 @@ def sign_zodiac_element(request, sign_element: str):
         'zodiacs_element_list': zodiac_element_list,
         'sign_element': sign_element,
         'zodiacs': zodiacs,
-        'main_urls': main_urls,
     }
     return render(request, 'horoscope/info_zodiac_element.html', context=data)
 
