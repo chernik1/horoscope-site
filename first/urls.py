@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('horoscope/', include('horoscope.urls')),
     path('', include('main_tab.urls')),
+    path('autification/', include('autification.urls')),
 ]
